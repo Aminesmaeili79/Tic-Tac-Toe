@@ -29,7 +29,7 @@ h1 {
 
 /* -------------------------------------------------- */
 /* MAIN MENU STYLES */
-.main-menu {
+.input-player {
 	font-size: 3.2rem;
 	backdrop-filter: blur(10px);
 
@@ -65,6 +65,26 @@ h1 {
 
 .input-player-name input:focus-visible {
 	outline: none;
+}
+
+.submit {
+	font-size: 2rem;
+	color: var(--color-main);
+
+	padding: 1rem 2rem;
+
+	border: none;
+	border-radius: 2rem;
+
+	transition: all 0.2s;
+}
+
+.submit:hover {
+	transform: translateY(-2px);
+}
+
+.submit:active {
+	transform: translateY(1px);
 }
 
 .difficulties {
@@ -118,6 +138,8 @@ h1 {
 	justify-content: center;
 	align-items: center;
 	gap: 1rem;
+
+	transition: all 1s;
 }
 
 /* -------------------------------------------------- */
@@ -192,6 +214,12 @@ h1 {
 	flex-direction: column;
 	align-items: center;
 	gap: 4rem;
+
+	display: grid;
+	grid-template-columns: 1fr;
+	justify-items: center;
+	align-items: center;
+	row-gap: 4rem;
 }
 
 .player1 {
@@ -275,6 +303,11 @@ h1 {
 
 .player-title {
 	font-size: 3.2rem;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
 }
 
 .player-score {
@@ -285,11 +318,37 @@ h1 {
 	gap: 1rem;
 }
 
+.change-button {
+	color: var(--color-main);
+	font-size: 1.2rem;
+
+	padding: 0.4rem 0.8rem;
+
+	border: none;
+	border-radius: 2rem;
+
+	align-self: start;
+
+	transition: all 0.2s;
+}
+
+.change-button:hover {
+	transform: translateY(-2px);
+}
+
+.change-button:active {
+	transform: translateY(1px);
+}
+
 .whose-turn {
 	font-size: 2rem;
 
 	grid-column: 1 / -1;
 	justify-self: center;
+
+	display: flex;
+	align-items: baseline;
+	gap: 0.5rem;
 }
 
 .player-turn-x::after {
@@ -369,6 +428,8 @@ h1 {
 /* -------------------------------------------------- */
 /* FOOTER STYLES */
 .game-control {
+	padding-bottom: 3rem;
+
 	align-self: center;
 	justify-self: center;
 
@@ -427,6 +488,8 @@ h1 {
 /* GENERAL STYLES AND RULES */
 .display-none {
 	display: none;
+	visibility: hidden;
+	opacity: 0;
 }
 
 .relative {

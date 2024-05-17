@@ -15,10 +15,11 @@
 		<link rel="stylesheet" href="assets/css/styles.css" />
 	</head>
 	<body class="relative">
-		<div class="main-menu display-none">
+		<div class="input-player display-none">
 			<div class="input-player-name">
-				<label for="input-name">Enter your name:</label>
+				<label for="input-name">Enter the name of the player:</label>
 				<input id="input-name" type="text" />
+				<button class="submit">Submit</button>
 			</div>
 			<div class="input-bot-difficulty">
 				<h2>Choose difficulty:</h2>
@@ -33,10 +34,10 @@
 			<header class="header">
 				<h1>Tic-Tac-Toe!</h1>
 				<select name="first-to" id="first-to">
-					<option value="first-to-3" selected>First To 3</option>
-					<option value="first-to-5">First To 5</option>
-					<option value="first-to-7">First To 7</option>
-					<option value="first-to-10">First To 10</option>
+					<option value="3" selected>First To 3</option>
+					<option value="5">First To 5</option>
+					<option value="7">First To 7</option>
+					<option value="10">First To 10</option>
 				</select>
 				<h4 class="x-goes-first">
 					<span class="remember">Remember!</span> X always goes first.
@@ -45,16 +46,20 @@
 			<main class="game-display">
 				<section class="player-info player1">
 					<div class="player-selection">
-						<h2 class="player player-active">Player1</h2>
+						<h2 class="player player-active">Player</h2>
 						<h2 class="bot">AI</h2>
 					</div>
 					<div class="player-title">
 						<div class="player-name">Amin</div>
 						<div class="bot-difficulty display-none"></div>
+						<button class="change-button change-name">Change Name</button>
+						<button class="change-button change-difficulty display-none">
+							Change Difficulty
+						</button>
 					</div>
 					<div class="player-score">
 						<h3>Score:</h3>
-						<h3 class="score">2</h3>
+						<h3 class="score1">0</h3>
 					</div>
 				</section>
 				<section class="game-board">
@@ -70,20 +75,27 @@
 				</section>
 				<section class="player-info player2">
 					<div class="player-selection">
-						<h2 class="player">Player2</h2>
+						<h2 class="player">Player</h2>
 						<h2 class="bot bot-active">AI</h2>
 					</div>
 					<div class="player-title">
 						<div class="player-name display-none"></div>
 						<div class="bot-difficulty">Hard</div>
+						<button class="change-button change-name display-none">
+							Change Name
+						</button>
+						<button class="change-button change-difficulty">
+							Change Difficulty
+						</button>
 					</div>
 					<div class="player-score">
 						<h3>Score:</h3>
-						<h3 class="score">1</h3>
+						<h3 class="score2">0</h3>
 					</div>
 				</section>
 				<div class="whose-turn">
-					<span class="player-turn-x"></span>'s Turn!
+					<span class="player-turn-x"></span>
+					<p>'s Turn!</p>
 				</div>
 			</main>
 			<footer class="game-control">

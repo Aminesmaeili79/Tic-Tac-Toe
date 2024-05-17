@@ -1,159 +1,219 @@
-// // /* ------------------------------------------------------------- */
+const boardCells = document.querySelectorAll(".board-cell");
 
-// // ADDING BOARD CELLS TO THE DOM
-// const boardCells = document.querySelectorAll(".board-cell");
+const whoseTurn = document.querySelector(".whose-turn span");
+const roundWinnerAnnounce = document.querySelector(".whose-turn p");
 
-// // CLICKING AND HOVERING ON BOARD CELL
-// const cellSelection = function (player, markerClick, markerTurn) {
-// 	boardCells.forEach((boardCell) => {
-// 		boardCell.addEventListener("mouseover", () => {
-// 			if (!boardCell.classList.contains(markerClick)) {
-// 				boardCell.classList.add(markerTurn);
-// 			}
-// 		});
-// 		boardCell.addEventListener("mouseleave", () => {
-// 			boardCell.classList.remove(markerTurn);
-// 		});
-// 		boardCell.addEventListener("click", (e) => {
-// 			var place = Number(e.target.classList[1].slice(-1)) - 1;
-// 			console.log(place);
+const restartRoundBtn = document.querySelector(".restart-round");
+const resetGameBtn = document.querySelector(".reset-game");
 
-// 			while (!isCellEmpty(place)) {
-// 				var place = Number(e.target.classList[1].slice(-1)) - 1;
-// 			}
+const player1ScoreDisplay = document.querySelector(".score1");
+const player2ScoreDisplay = document.querySelector(".score2");
 
-// 			board[Math.floor(place / 3)][place % 3] = player.marker;
+const playerInputs = document.querySelector(".input-player");
+const playerInputName = document.querySelector(".input-player-name");
+const AiInputDifficulty = document.querySelector(".input-bot-difficulty");
 
-// 			boardCell.classList.add(markerClick);
-// 			boardCell.classList.remove(markerTurn);
+const playerSelect = document.querySelectorAll(".player");
+const botSelect = document.querySelectorAll(".bot");
 
-// 			console.log(board);
-// 		});
-// 	});
-// };
+const winner = document.querySelector(".winner");
 
-// const isCellEmpty = function (place) {
-// 	while (board[Math.floor(place / 3)][place % 3] != null) {
-// 		alert("You cannot place it there.");
-// 		return false;
-// 	}
-// 	return true;
-// };
+const endScreen = document.querySelector(".game-end");
 
-// // Board function factory
-// function CreateBoard() {
-// 	let board = [];
-// 	const initBoard = function () {
-// 		for (let i = 0; i < 3; i++) {
-// 			board.push([]);
-// 			for (let j = 0; j < 3; j++) {
-// 				board[i].push(null);
-// 			}
-// 		}
-// 		return board;
-// 	};
-// 	return { initBoard };
-// }
-// // Init board
-// var board = CreateBoard().initBoard();
+let roundsPlayed = 0;
 
-// /* ------------------------------------------------------------- */
+const roundsToPlayBtn = document.querySelector("#first-to");
+let roundsToPlay = 3;
 
-// // Player function factory
-// function Player(name, marker) {
-// 	return { name, marker };
-// }
-// // Init players
-// const player1 = Player("Amin", "X");
-// const player2 = Player("Negin", "O");
+roundsToPlayBtn.addEventListener("change", () => {
+	roundsToPlay = roundsToPlayBtn.value;
+	console.log(roundsToPlay);
+});
 
-// /* ------------------------------------------------------------- */
+let player1Score = 0;
+let player2Score = 0;
 
-// function Game(board, player1, player2) {
-// 	// Checking whether the game is over or not
-// 	function isGameOver(board) {
-// 		for (let i = 0; i < 3; i++) {
-// 			for (let j = 0; j < 3; j++) {
-// 				if (board[i][j] == null) return false;
-// 			}
-// 		}
-// 		return true;
-// 	}
-// 	// Checking for the winner
-// 	function isWinner(player) {
-// 		for (let i = 0; i < 3; i++) {
-// 			if (
-// 				board[0][i] == player.marker &&
-// 				board[1][i] == player.marker &&
-// 				board[2][i] == player.marker
-// 			) {
-// 				console.log(`${player.name} is the winner.`);
-// 				return true;
-// 			} else if (
-// 				board[i][0] == player.marker &&
-// 				board[i][1] == player.marker &&
-// 				board[i][2] == player.marker
-// 			) {
-// 				console.log(`${player.name} is the winner.`);
-// 				return true;
-// 			}
-// 		}
-// 		if (
-// 			(board[0][0] == player.marker &&
-// 				board[1][1] == player.marker &&
-// 				board[2][2] == player.marker) ||
-// 			(board[0][2] == player.marker &&
-// 				board[1][1] == player.marker &&
-// 				board[2][0] == player.marker)
-// 		) {
-// 			console.log(`${player.name} is the winner.`);
-// 			return true;
-// 		}
-// 		return false;
-// 	}
-// 	// Checking for tie game
-// 	function isTie(player1, player2) {
-// 		if (!isWinner(player1) && !isWinner(player2)) {
-// 			console.log("It's a tie.");
-// 			return true;
-// 		}
-// 		return false;
-// 	}
-// 	function placeMarker(player, marker, turn) {
-// 		cellSelection(player, marker, turn);
-// 		// let place = Number(
-// 		// 	prompt(`${player.name}: Where do you want to place the marker?`)
-// 		// );
-// 		// while (board[Math.floor(place / 3)][place % 3] != null) {
-// 		// alert("You cannot place it there.");
-// 		// 	place = Number(
-// 		// 		prompt(`${player.name}: Where do you want to place the marker?`)
-// 		// 	);
-// 		// }
-// 		// board[Math.floor(place / 3)][place % 3] = player.marker;
-// 	}
+const winningCombinations = [
+	[0, 1, 2],
+	[3, 4, 5],
+	[6, 7, 8],
+	[0, 3, 6],
+	[1, 4, 7],
+	[2, 5, 8],
+	[0, 4, 8],
+	[2, 4, 6],
+];
 
-// 	while (!isGameOver(board)) {
-// 		if (isWinner(player2)) {
-// 			var board = CreateBoard().initBoard();
-// 			return;
-// 		} else {
-// 			placeMarker(player1, "marker-x", "turn-x");
-// 		}
+const xMarker = "marker-x";
+const oMarker = "marker-o";
+const xHover = "turn-x";
+const oHover = "turn-o";
 
-// 		if (isWinner(player1)) {
-// 			var board = CreateBoard().initBoard();
-// 			return;
-// 		} else {
-// 			placeMarker(player2, "marker-o", "turn-o");
-// 		}
-// 		// isTie();
-// 		console.log(board);
-// 	}
-// }
+let xTurn = true;
 
-// Game(board, player1, player2);
+function gameStart() {
+	xTurn = true;
+	clearBoard(boardCells);
+	boardCells.forEach((cell) => {
+		cell.addEventListener("click", handleClick);
+		cell.addEventListener("mouseover", handleMouseOver);
+		cell.addEventListener("mouseleave", handleMouseLeave);
+	});
+	updateTurnDisplay();
+}
 
-// const clickedCell = function (e) {
-// 	return e.target.classList[1];
-// };
+function handleClick(e) {
+	const cell = e.target;
+	const currentMarker = xTurn ? xMarker : oMarker;
+
+	placeMark(cell, currentMarker);
+
+	if (checkWin(currentMarker)) {
+		endGame(false);
+	} else if (isDraw()) {
+		endGame(true);
+	} else {
+		swapTurns();
+	}
+}
+
+function handleMouseOver() {
+	if (!this.classList.contains(xMarker) && !this.classList.contains(oMarker)) {
+		this.classList.add(xTurn ? xHover : oHover);
+	}
+}
+
+function handleMouseLeave() {
+	this.classList.remove(xHover);
+	this.classList.remove(oHover);
+}
+
+function placeMark(cell, currentPlayerMarker) {
+	cell.classList.add(currentPlayerMarker);
+	cell.classList.remove(xHover);
+	cell.classList.remove(oHover);
+}
+
+function swapTurns() {
+	xTurn = !xTurn;
+	updateTurnDisplay();
+}
+
+function checkWin(currentMarker) {
+	return winningCombinations.some((combination) => {
+		return combination.every((index) => {
+			return boardCells[index].classList.contains(currentMarker);
+		});
+	});
+}
+
+function endGame(draw) {
+	if (draw) {
+		console.log("it's a draw");
+	} else {
+		if (xTurn) {
+			updatePlayerScores(++player1Score, player1ScoreDisplay);
+			roundWinnerAnnounce.innerText = "wins the round!";
+			setTimeout(() => {
+				roundWinnerAnnounce.innerText = "'s turn!";
+			}, 1000);
+			console.log("x wins");
+		} else {
+			updatePlayerScores(++player2Score, player2ScoreDisplay);
+			roundWinnerAnnounce.innerText = "wins the round!";
+			setTimeout(() => {
+				roundWinnerAnnounce.innerText = "'s turn!";
+			}, 1000);
+			console.log("o wins");
+		}
+	}
+	disableBoard();
+}
+
+function isDraw() {
+	return [...boardCells].every((cell) => {
+		return cell.classList.contains(xMarker) || cell.classList.contains(oMarker);
+	});
+}
+
+function clearBoard(cells) {
+	cells.forEach((cell) => {
+		cell.classList.remove(xMarker);
+		cell.classList.remove(oMarker);
+	});
+}
+
+function updateTurnDisplay() {
+	whoseTurn.classList.toggle("player-turn-x", xTurn);
+	whoseTurn.classList.toggle("player-turn-o", !xTurn);
+}
+
+function disableBoard() {
+	boardCells.forEach((cell) => {
+		cell.removeEventListener("click", handleClick);
+		cell.removeEventListener("mouseover", handleMouseOver);
+		cell.removeEventListener("mouseleave", handleMouseLeave);
+	});
+	if (Math.floor(roundsToPlay / 2) + 1 == player1Score) {
+		endScreenDisplay("Player1");
+		resetPlayersScores();
+		console.log("player1 wins the game");
+	} else if (Math.floor(roundsToPlay / 2) + 1 == player2Score) {
+		endScreenDisplay("Player2");
+		resetPlayersScores();
+		console.log("player2 wins the game");
+	} else {
+		gameStart();
+	}
+}
+
+function endScreenDisplay(player) {
+	winner.innerText = player;
+	endScreen.classList.remove("display-none");
+	setTimeout(() => {
+		endScreen.classList.add("display-none");
+	}, 3000);
+	gameStart();
+}
+
+function updatePlayerScores(playerScore, playerScoreDisplay) {
+	playerScoreDisplay.innerText = playerScore;
+}
+
+restartRoundBtn.addEventListener("click", () => {
+	gameStart();
+});
+
+function resetPlayersScores() {
+	updatePlayerScores(0, player1ScoreDisplay);
+	updatePlayerScores(0, player2ScoreDisplay);
+}
+
+resetGameBtn.addEventListener("click", () => {
+	resetPlayersScores();
+	gameStart();
+});
+
+playerSelect.forEach((player) => {
+	player.addEventListener("click", () => {
+		if (!player.classList.contains("player-active")) {
+			player.nextElementSibling.classList.remove("bot-active");
+			player.classList.add("player-active");
+			player.parentElement.nextElementSibling.firstElementChild.innerText =
+				"Player1";
+			console.log(player.parentElement.nextElementSibling.firstElementChild);
+		}
+	});
+});
+botSelect.forEach((bot) => {
+	bot.addEventListener("click", () => {
+		if (!bot.classList.contains("bot-active")) {
+			bot.previousElementSibling.classList.remove("player-active");
+			bot.classList.add("bot-active");
+		}
+	});
+});
+
+// -----------------------------------------------------------------
+
+gameStart();
