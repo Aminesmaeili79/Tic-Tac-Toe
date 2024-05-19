@@ -27,130 +27,31 @@ h1 {
 	font-size: 5rem;
 }
 
+body {
+	width: 100vw;
+}
+
 /* -------------------------------------------------- */
 /* MAIN MENU STYLES */
-.input-player {
-	font-size: 3.2rem;
-	backdrop-filter: blur(10px);
-
+.main-menu {
 	width: 100%;
-	height: 100vh;
+	height: clamp(100%, 100vh, 200vh);
+	font-size: 2.4rem;
+	background-color: var(--color-main);
+
+	padding-top: 4rem;
 
 	position: absolute;
 	top: 0;
 	left: 0;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.input-player-name,
-.input-bot-difficulty {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 4rem;
-}
+	gap: 5rem;
 
-.input-player-name input {
-	font-size: 2.4rem;
-	background-color: var(--color-text);
+	z-index: 1000;
 
-	padding: 1rem 2rem;
-
-	border: none;
-	border-radius: 4rem;
-}
-
-.input-player-name input:focus-visible {
-	outline: none;
-}
-
-.submit {
-	font-size: 2rem;
-	color: var(--color-main);
-
-	padding: 1rem 2rem;
-
-	border: none;
-	border-radius: 2rem;
-
-	transition: all 0.2s;
-}
-
-.submit:hover {
-	transform: translateY(-2px);
-}
-
-.submit:active {
-	transform: translateY(1px);
-}
-
-.difficulties {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	justify-items: center;
-}
-
-.difficulty {
-	justify-self: center;
-	padding: 1rem 2rem;
-	border-radius: 2rem;
-
-	text-decoration: underline;
-
-	transition: all 0.2s;
-}
-
-.easy:hover {
-	background-color: #4ade80;
-
-	text-decoration: none;
-}
-
-.hard:hover {
-	background-color: #fb923c;
-
-	text-decoration: none;
-}
-
-.unbeatable:hover {
-	background-color: var(--color-x);
-
-	text-decoration: none;
-}
-
-/* -------------------------------------------------- */
-/* GAME ENDING STYLES */
-.game-end {
-	font-size: 4rem;
-
-	width: 100%;
-	height: 100vh;
-	backdrop-filter: blur(10px);
-
-	position: absolute;
-	top: 0;
-	left: 0;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 1rem;
-
-	transition: all 1s;
-}
-
-/* -------------------------------------------------- */
-/* MAIN CONTAINER */
-.container {
-	height: 100vh;
-
-	display: grid;
-	grid-template-columns: 1fr;
-	row-gap: 2rem;
-	/* grid-template-rows: 1fr 1fr 1fr; */
+	transition: all 0.5s;
 }
 
 #first-to {
@@ -168,20 +69,206 @@ h1 {
 	-moz-appearance: none;
 	text-indent: 1px;
 	text-overflow: "";
+
+	justify-self: center;
 }
 
 #first-to:focus-visible {
 	outline: none;
 }
 
+.player-choices {
+	display: flex;
+	gap: 12rem;
+}
+
+.choose-player {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4rem;
+}
+
+.player-chosen,
+.bot-chosen {
+	text-decoration: underline;
+
+	padding: 1rem 2rem;
+
+	cursor: pointer;
+
+	transition: all 0.3s;
+}
+
+.player-chosen:hover {
+	text-decoration: none;
+	background-color: var(--color-x);
+
+	padding: 1rem 2rem;
+
+	border: none;
+	border-radius: 4rem;
+}
+
+.player-chosen-active {
+	text-decoration: none;
+	background-color: var(--color-x);
+
+	padding: 1rem 2rem;
+
+	border: none;
+	border-radius: 4rem;
+}
+
+.bot-chosen:hover {
+	text-decoration: none;
+	background-color: var(--color-o);
+
+	padding: 1rem 2rem;
+
+	border: none;
+	border-radius: 4rem;
+}
+
+.bot-chosen-active {
+	text-decoration: none;
+	background-color: var(--color-o);
+
+	padding: 1rem 2rem;
+
+	border: none;
+	border-radius: 4rem;
+}
+
+.choice1 {
+	justify-self: end;
+}
+
+.choice2 {
+	justify-self: start;
+}
+
+.player-and-bot {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	row-gap: 4rem;
+	justify-items: center;
+}
+
+.player-name,
+.bot-difficulties {
+	grid-column: 1 / -1;
+}
+
+.name-input {
+	font-size: 2rem;
+
+	padding: 0.5rem 1rem;
+	border-radius: 2rem;
+}
+
+.name-input:focus-visible {
+	outline: 1px solid var(--color-main);
+	outline-offset: -6px;
+}
+
+.bot-difficulties {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.easy,
+.hard,
+.unbeatable {
+	text-decoration: underline;
+
+	padding: 0.5rem 1rem;
+	border-radius: 2rem;
+
+	cursor: pointer;
+
+	transition: all 0.2s;
+}
+
+.easy:hover,
+.easy-selected {
+	text-decoration: none;
+	color: var(--color-main);
+	background-color: #bef264;
+}
+
+.hard:hover,
+.hard-selected {
+	text-decoration: none;
+	color: var(--color-main);
+	background-color: #fcd34d;
+}
+
+.unbeatable:hover,
+.unbeatable-selected {
+	text-decoration: none;
+	color: var(--color-main);
+	background-color: #f87171;
+}
+
+.play {
+	font-size: 3.2rem;
+
+	padding: 1rem 2rem;
+
+	border: none;
+	border-radius: 3rem;
+
+	transition: all 0.2s;
+}
+
+.play:hover {
+	background-color: var(--color-main-light);
+	color: var(--color-text);
+
+	transform: translateY(-2px);
+}
+
+.play:active {
+	transform: translateY(1px);
+}
+
+/* -------------------------------------------------- */
+/* GAME ENDING STYLES */
+.game-end {
+	font-size: 4rem;
+
+	width: 100%;
+	height: clamp(100%, 100vh, 200vh);
+	backdrop-filter: blur(10px);
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+
+	transition: all 1s;
+}
+
+/* -------------------------------------------------- */
+/* MAIN CONTAINER */
+.container {
+	display: grid;
+	grid-template-columns: 1fr;
+	row-gap: 4rem;
+}
+
 /* -------------------------------------------------- */
 /* HEADER STYLES */
 .header {
-	/* display: flex;
-	align-items: center;
-	justify-content: space-around; */
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr;
 	justify-items: center;
 	align-items: center;
 }
@@ -198,8 +285,6 @@ h1 {
 /* -------------------------------------------------- */
 /* BOARD AND PLAYERS STYLES */
 .game-display {
-	width: 100%;
-
 	align-self: center;
 
 	display: grid;
@@ -210,11 +295,6 @@ h1 {
 
 /* PLAYERS */
 .player-info {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 4rem;
-
 	display: grid;
 	grid-template-columns: 1fr;
 	justify-items: center;
@@ -224,6 +304,14 @@ h1 {
 
 .player1 {
 	justify-self: end;
+}
+
+.player1 .player-title .display-name {
+	background-color: var(--color-x);
+}
+
+.player2 .player-title .display-name {
+	background-color: var(--color-o);
 }
 
 .player2 {
@@ -318,8 +406,8 @@ h1 {
 	gap: 1rem;
 }
 
-.change-button {
-	color: var(--color-main);
+.display-name {
+	color: var(--color-text);
 	font-size: 1.2rem;
 
 	padding: 0.4rem 0.8rem;
@@ -327,16 +415,14 @@ h1 {
 	border: none;
 	border-radius: 2rem;
 
-	align-self: start;
-
 	transition: all 0.2s;
 }
 
-.change-button:hover {
+.display-name:hover {
 	transform: translateY(-2px);
 }
 
-.change-button:active {
+.display-name:active {
 	transform: translateY(1px);
 }
 
@@ -378,7 +464,7 @@ h1 {
 
 .board-cell {
 	font-size: 5rem;
-	width: 100%;
+	/* width: 8rem; */
 	height: 8rem;
 	aspect-ratio: 1 / 1;
 
@@ -486,10 +572,13 @@ h1 {
 
 /* -------------------------------------------------- */
 /* GENERAL STYLES AND RULES */
-.display-none {
-	display: none;
+.visible-none {
 	visibility: hidden;
 	opacity: 0;
+}
+
+.display-none {
+	display: none;
 }
 
 .relative {
